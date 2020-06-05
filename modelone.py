@@ -30,12 +30,13 @@ for (i,layer) in enumerate(model.layers):
 
 # In[5]:
 
+units = int(256)
 
 
-    def addTopModel(bottom_model, num_classes,D=256):
+    def addTopModel(bottom_model, num_classes,unit):
       top_model = bottom_model.output
       top_model = Flatten(name = "flatten")(top_model)
-      top_model = Dense(D, activation = "relu")(top_model)
+      top_model = Dense(unit, activation = "relu")(top_model)
       top_model = Dropout(0.3)(top_model)
       top_model = Dense(num_classes, activation = "softmax")(top_model)
       return top_model
@@ -52,7 +53,7 @@ for (i,layer) in enumerate(model.layers):
 
     num_classes = 3
 
-    FC_Head = addTopModel(model, num_classes,D)
+    FC_Head = addTopModel(model, num_classes,units)
 
     modelnew = Model(inputs=model.input, outputs=FC_Head)
 
