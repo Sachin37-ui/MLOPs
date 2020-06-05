@@ -68,8 +68,8 @@ while(final_acc<92):
 
     from keras.preprocessing.image import ImageDataGenerator
 
-    train_data_dir = '/root/Desktop/MLOPs/17_flowers/train'
-    validation_data_dir = '/root/Desktop/MLOPs/17_flowers/validation'
+    train_data_dir = '/root/workspace1/17_flowers/train'
+    validation_data_dir = '/root/workspace1/17_flowers/validation'
 
     train_datagen = ImageDataGenerator(
       rescale=1./255,
