@@ -68,8 +68,8 @@ while(final_acc<92):
 
     from keras.preprocessing.image import ImageDataGenerator
 
-    train_data_dir = '/root/17_flowers/train'
-    validation_data_dir = '/root/17_flowers/validation'
+    train_data_dir = '/root/17_flowers/17_flowers/train'
+    validation_data_dir = '/root/17_flowers/17_flowers/validation'
 
     train_datagen = ImageDataGenerator(
       rescale=1./255,
@@ -145,6 +145,7 @@ while(final_acc<92):
     final_acc = max(acc)
     final_acc = final_acc*100
     print(final_acc)
+    
 
 
 
