@@ -145,6 +145,25 @@ while(final_acc<92):
     final_acc = max(acc)
     final_acc = final_acc*100
     print(final_acc)
+if(final_acc<=92):
+   import smtplib
+   s=smtplib.SMTP('smtp.gmail.com',587)
+   s.starttls()
+   s.login("tendlysachin8@gmail.com","Sarthak2@15")
+   message="your model succesfully trained but didn't get the desired accuracy"
+   s.sendmail("tendlysachin8@gmail.com","sm026552@gmail.com",message)
+   print("mail sent")
+   s.quit()
+  
+else:
+   import smtplib
+   s=smtplib.SMTP('smtp.gmail.com',587)
+   s.starttls()
+   s.login("tendlysachin8@gmail.com","Sarthak2@15")
+   message="your model successfully trained and this time your model achieved desired accuracy "
+   s.sendmail("tendlysachin8@gmail.com","sm026552@gmail.com",message)
+   print("mail sent")
+   s.quit()    
     
 
 
