@@ -33,7 +33,7 @@ for (i,layer) in enumerate(model.layers):
 units = int(256)
 
 
-    def addTopModel(bottom_model, num_classes,unit):
+     def addTopModel(bottom_model, num_classes,unit):
       top_model = bottom_model.output
       top_model = Flatten(name = "flatten")(top_model)
       top_model = Dense(unit, activation = "relu")(top_model)
