@@ -67,10 +67,10 @@ print(modelnew.summary())
 # In[9]:
 from keras.preprocessing.image import ImageDataGenerator
 
-    train_data_dir = '/root/17_flowers/train'
-    validation_data_dir = '/root/17_flowers/validation'
+train_data_dir = '/root/17_flowers/17_flowers/train'
+validation_data_dir = '/root/17_flowers/17_flowers/validation'
 
-    train_datagen = ImageDataGenerator(
+train_datagen = ImageDataGenerator(
       rescale=1./255,
       rotation_range=20,
       width_shift_range=0.2,
@@ -78,19 +78,19 @@ from keras.preprocessing.image import ImageDataGenerator
       horizontal_flip=True,
       fill_mode='nearest')
  
-    validation_datagen = ImageDataGenerator(rescale=1./255)
+validation_datagen = ImageDataGenerator(rescale=1./255)
  
 # Change the batchsize according to your system RAM
-    train_batchsize = 16
-    val_batchsize = 10
+train_batchsize = 16
+val_batchsize = 10
  
-    train_generator = train_datagen.flow_from_directory(
+train_generator = train_datagen.flow_from_directory(
         train_data_dir,
         target_size=(img_rows, img_cols),
         batch_size=train_batchsize,
         class_mode='categorical')
  
-    validation_generator = validation_datagen.flow_from_directory(
+validation_generator = validation_datagen.flow_from_directory(
         validation_data_dir,
         target_size=(img_rows, img_cols),
         batch_size=val_batchsize,
@@ -102,47 +102,68 @@ from keras.preprocessing.image import ImageDataGenerator
 
 # In[ ]:
 
-
-    from keras.optimizers import RMSprop
-    from keras.callbacks import ModelCheckpoint, EarlyStopping
+from keras.optimizers import RMSprop
+from keras.callbacks import ModelCheckpoint, EarlyStopping
                    
-    checkpoint = ModelCheckpoint("flowers_vgg.h5",
+checkpoint = ModelCheckpoint("flowers_vgg.h5",
                         monitor="val_loss",
                         mode="min",
                         save_best_only = True,
                         verbose=1)
 
-    earlystop = EarlyStopping(monitor = 'val_loss', 
+earlystop = EarlyStopping(monitor = 'val_loss', 
                           min_delta = 0, 
                           patience = 3,
                           verbose = 1,
                           restore_best_weights = True)
 
 # we put our call backs into a callback list
-    callbacks = [earlystop, checkpoint]
+callbacks = [earlystop, checkpoint]
 
 # Note we use a very small learning rate 
-    modelnew.compile(loss = 'categorical_crossentropy',
+modelnew.compile(loss = 'categorical_crossentropy',
               optimizer = RMSprop(lr = 0.001),
               metrics = ['accuracy'])
 
-    nb_train_samples = 210
-    nb_validation_samples = 30
-    epochs = 2
-    batch_size = 16
+nb_train_samples = 210
+nb_validation_samples = 30
+epochs = 2
+batch_size = 16
 
-    history = modelnew.fit_generator(
+history = modelnew.fit_generator(
      train_generator,
      steps_per_epoch = nb_train_samples // batch_size,
      epochs = epochs,
      callbacks = callbacks,
      validation_data = validation_generator,
      validation_steps = nb_validation_samples // batch_size)
+modelnew.save("flowers_vgg.h5")
+acc = history.history['accuracy']
+final_acc = max(acc)
+final_acc = final_acc*100
+print(final_acc)
+if(final_acc<=85):
+   import smtplib
+   s=smtplib.SMTP('smtp.gmail.com',587)
+   s.starttls()
+   s.login("tendlysachin8@gmail.com","Sarthak2@15")
+   message="your model succesfully trained but didn't get the desired accuracy"
+   s.sendmail("tendlysachin8@gmail.com","sm026552@gmail.com",message)
+   print("mail sent")
+   s.quit()
+  
+else:
+   import smtplib
+   s=smtplib.SMTP('smtp.gmail.com',587)
+   s.starttls()
+   s.login("tendlysachin8@gmail.com","Sarthak2@15")
+   message="your model successfully trained and this time your model achieved desired accuracy "
+   s.sendmail("tendlysachin8@gmail.com","sm026552@gmail.com",message)
+   print("mail sent")
+   s.quit()
+  
+  
+  
 
-    modelnew.save("flowers_vgg.h5")
-    acc = history.history['accuracy']
-    final_acc = max(acc)
-    final_acc = final_acc*100
-    print(final_acc)
     
 
