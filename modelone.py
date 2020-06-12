@@ -49,7 +49,7 @@ from keras.layers import Conv2D, MaxPooling2D, ZeroPadding2D
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 
-num_classes = 3
+num_classes = 17
 
 FC_Head = addTopModel(model, num_classes,units)
 
@@ -125,8 +125,8 @@ modelnew.compile(loss = 'categorical_crossentropy',
               optimizer = RMSprop(lr = 0.001),
               metrics = ['accuracy'])
 
-nb_train_samples = 210
-nb_validation_samples = 30
+nb_train_samples = 957
+nb_validation_samples = 60
 epochs = 2
 batch_size = 16
 
