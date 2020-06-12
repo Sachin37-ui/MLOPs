@@ -47,7 +47,7 @@ while(final_acc<92):
     from keras.layers.normalization import BatchNormalization
     from keras.models import Model
 
-    num_classes = 3
+    num_classes = 17
 
     FC_Head = addTopModel(model, num_classes,D)
 
@@ -127,8 +127,8 @@ while(final_acc<92):
               optimizer = RMSprop(lr = 0.001),
               metrics = ['accuracy'])
 
-    nb_train_samples = 210
-    nb_validation_samples = 30
+    nb_train_samples = 957
+    nb_validation_samples = 60
     epochs = epochs+2
     batch_size = 16
 
