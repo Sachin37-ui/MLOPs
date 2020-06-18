@@ -26,7 +26,7 @@ for (i,layer) in enumerate(model.layers):
 D=2048
 final_acc=0
 epochs=1
-while(final_acc<92):
+while(final_acc<80):
     D=D-(D//2)
 
     def addTopModel(bottom_model, num_classes,D):
@@ -145,7 +145,7 @@ while(final_acc<92):
     final_acc = max(acc)
     final_acc = final_acc*100
     print(final_acc)
-if(final_acc<=92):
+if(final_acc<=80):
    import smtplib
    s=smtplib.SMTP('smtp.gmail.com',587)
    s.starttls()
